@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/info/info"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0f4c75",
+    "navigationBarTitleText": "新型冠状病毒肺炎动态",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "疫情",
+        "iconPath": "asserts/tabicon/hospital-u.png",
+        "selectedIconPath": "asserts/tabicon/hospital-a.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "text": "防治",
+        "iconPath": "asserts/tabicon/cure-u.png",
+        "selectedIconPath": "asserts/tabicon/cure-a.png"
+      }
+    ],
+    "color": "#1b262c",
+    "selectedColor": "#0f4c75"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}

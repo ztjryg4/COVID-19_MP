@@ -1,0 +1,33 @@
+<!--index.wxml-->
+
+<view class="cu-card">
+  <view class="cu-item bg-img shadow-blur" style="background-image:url({{brief_info_bg}})">
+    <view class="padding-xl text-white">
+      <view class="padding-xs text-xl text-bold">
+        新型冠状病毒信息查询
+      </view>
+      <view class="padding-xs text-lg">
+        {{brief_content}}
+      </view>
+      <view class="padding-xs text-df" wx:for="{{tips_list}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-card">
+  <view class="cu-item bg-img shadow-blur" style="background-image:url({{detail_info_bg}})">
+    <view class="padding-xl text-white">
+      <view class="padding-xs text-xl text-bold">
+        防控信息
+      </view>
+      <view class="padding-xs text-sm">
+        * 信息来自 丁香园·丁香医生
+      </view>
+      <view class="padding-xs text-lg" wx:for="{{detail_list}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+</view>

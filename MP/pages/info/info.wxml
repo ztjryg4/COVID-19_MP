@@ -1,0 +1,9 @@
+<!--pages/info/info.wxml-->
+<view class="padding-xl  shadow shadow-lg bg-white margin-top" wx:for="{{info_list}}">
+  <view class="padding-xs text-xl text-bold">
+    {{item['title']}}
+  </view>
+  <view class="padding-xs text-lg">
+    {{item['content']}}
+  </view>
+</view>
