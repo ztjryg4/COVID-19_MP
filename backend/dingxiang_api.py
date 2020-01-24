@@ -21,7 +21,7 @@ def tipsResponse():
 
 @app.route('/dx/detail')
 def detailResponse():
-    data = dingxiang_crawler.getDetailInfo()
+    data = dingxiang_crawler.getDetailInfoNew()
     js = json.dumps(data, ensure_ascii=False)
     print(js)
     res = Response(js, status=200, mimetype='application/json')
@@ -29,7 +29,7 @@ def detailResponse():
 
 @app.route('/dx/info')
 def infoResponse():
-    data = dingxiang_crawler.getNews()
+    data = dingxiang_crawler.getTimeLine()
     js = json.dumps(data, ensure_ascii=False)
     print(js)
     res = Response(js, status=200, mimetype='application/json')
@@ -37,4 +37,5 @@ def infoResponse():
 
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0",debug=True,port=2019)
+    # app.run(host="0.0.0.0",debug=True,port=2019)
+    app.run(debug=True,port=2019)
