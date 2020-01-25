@@ -23,17 +23,21 @@ def getBriefInfo():
     filter1 = re.compile(reg1)
     list1 = re.findall(filter1,html)
     if len(list1) != 0:
-        print(list1[0])
-        return list1[0]
+        # print(list1[0])
+        try:
+            brief = list1[0].replace("\\n"," ")
+        except:
+            brief = list1[0]
+        return brief
     else:
         return -1
 
 def getBriefTips():
     content = {
         "tips": [
-            "传染源: 野生动物 可能为中华菊头蝠；病毒：新型冠状病毒 2019-nCoV",
-            "传播途径: 未完全掌握，存在人传人、医务人员感染、一定范围社区传播",
-            "传播进展：疫情扩散中，存在病毒变异可能"
+        	"* 当前访问人数众多，可能出现响应延迟。",
+            "传染源：野生动物，中国马蹄蝠；病毒：新型冠状病毒 2019-nCoV。",
+            "传播途径未完全掌握，存在人传人、医务人员感染、一定范围社区传播，疫情扩散中，存在病毒变异可能。"
         ]
     }
     # print(content)
@@ -142,7 +146,7 @@ def getTimeLine():
         return -1
 
 # getHtml()
-# getBriefInfo()
+# print(getBriefInfo())
 # getDetailInfo()
 # getNews()
 # getDetailInfoNew()
