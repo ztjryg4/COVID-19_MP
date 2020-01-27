@@ -29,7 +29,7 @@ def detailResponse():
 
 @app.route('/dx/info')
 def infoResponse():
-    data = dingxiang_crawler.getTimeLine()
+    data = dingxiang_crawler.getComplexTimeLine()
     js = json.dumps(data, ensure_ascii=False)
     print(js)
     res = Response(js, status=200, mimetype='application/json')

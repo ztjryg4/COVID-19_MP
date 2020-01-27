@@ -25,7 +25,7 @@ def getBriefInfo():
     if len(list1) != 0:
         # print(list1[0])
         try:
-            brief = list1[0].replace("\\n"," ")
+            brief = list1[0].replace("\\n"," ").replace("，"," ")
         except:
             brief = list1[0]
         return brief
@@ -36,7 +36,7 @@ def getBriefTips():
     content = {
         "tips": [
         	"* 当前访问人数众多，可能出现响应延迟。",
-            "传染源：野生动物，中国马蹄蝠；病毒：新型冠状病毒 2019-nCoV。",
+            "传染源：野生动物，可能为中华菊头蝠；病毒：新型冠状病毒 2019-nCoV。",
             "传播途径未完全掌握，存在人传人、医务人员感染、一定范围社区传播，疫情扩散中，存在病毒变异可能。"
         ]
     }
@@ -133,7 +133,7 @@ def getTimeLine():
                 else:
                     pubDateString = '-'
 
-                temptitle = '【' + i['infoSource'] + '】' + i['title']
+                temptitle = '【动态】' + i['infoSource'] + '：' + i['title']
                 tempcontent = i['summary'] + '(' + pubDateString + ')'
                 tempnews['title'] = temptitle
                 tempnews['content'] = tempcontent
@@ -143,11 +143,65 @@ def getTimeLine():
         else:
             return content
     else:
-        return -1
+        return getTempNews()
 
+def getRumor():
+    html = getHtml()
+    reg4 = r'getIndexRumorList = (.*?)}c'
+    filter4 = re.compile(reg4)
+    list4 = re.findall(filter4,html)
+    # print(list4)
+    if len(list4) != 0:
+        try:
+            jsonstr = '{"rumor": ' + list4[0] + '}'
+            jsonobj = json.loads(jsonstr)
+            newsdata = jsonobj['rumor']
+            content = {
+                "rumor": []
+            }
+            for i in newsdata:
+                tempnews = {
+                    "title" : "",
+                    "content" : ""
+                }
+                temptitle = '【辟谣】' + i['title']
+                tempcontent = i['mainSummary'] + '：' + i['body']
+                tempcontent = tempcontent.replace("\\n"," ")
+
+                tempnews['title'] = temptitle
+                tempnews['content'] = tempcontent
+                content['rumor'].append(tempnews)
+        except:
+            return 0 # error when getting rumors
+        else:
+            return content
+    else:
+        return 0
+
+def getComplexTimeLine():
+    newsContent = getTimeLine()
+    rumorContent = getRumor()
+    # print(rumorContent)
+    if rumorContent != 0:
+        try:
+            tempContent = newsContent
+            rumorNum = len(rumorContent['rumor'])
+            for i in range(0,rumorNum):
+                # print(i)
+                tempContent['news'].insert(2*i,rumorContent['rumor'][i])
+        except:
+            return tempContent
+        else:
+            return newsContent
+    else:
+        return newsContent
+    pass
 # getHtml()
 # print(getBriefInfo())
 # getDetailInfo()
 # getNews()
 # getDetailInfoNew()
 # print(getTimeLine())
+print(getComplexTimeLine())
+# getComplexTimeLine()
+# print(getRumor())
