@@ -7,7 +7,7 @@ app= Flask(__name__)
 
 @app.route('/dx/brief')  
 def briefResponse():
-    data = dingxiang_crawler.getBriefInfo()
+    data = dingxiang_crawler.getBriefInfoNew()
     res = Response(data, status=200, mimetype='text/plain')
     return res
 
@@ -21,7 +21,7 @@ def tipsResponse():
 
 @app.route('/dx/detail')
 def detailResponse():
-    data = dingxiang_crawler.getDetailInfoNew()
+    data = dingxiang_crawler.getComplexDetail()
     js = json.dumps(data, ensure_ascii=False)
     print(js)
     res = Response(js, status=200, mimetype='application/json')
