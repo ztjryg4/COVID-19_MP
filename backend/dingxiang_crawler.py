@@ -2,7 +2,8 @@ import requests
 import re
 import json
 import time
-
+import dingxiang_middleware
+import time
 
 '''
 Basic
@@ -73,6 +74,7 @@ def getBriefInfoNew():
         except:
             return 0
         else:
+            dingxiang_middleware.update(0, simpledata)
             return simpledata
     else:
         return 0
@@ -87,6 +89,7 @@ def getBriefTips():
         ]
     }
     # print(content)
+    dingxiang_middleware.update(1, content)
     return content
 
 
@@ -199,10 +202,13 @@ def getComplexDetail():
             tempContent = domesticContent
             tempContent['detail'].append(foreignContent['detail'][0])
         except:
+            dingxiang_middleware.update(2, tempContent)
             return tempContent
         else:
+            dingxiang_middleware.update(2, domesticContent)
             return domesticContent
     else:
+        dingxiang_middleware.update(2, domesticContent)
         return domesticContent
 
 
@@ -308,22 +314,33 @@ def getComplexTimeLine():
                 # print(i)
                 tempContent['news'].insert(2*i, rumorContent['rumor'][i])
         except:
+            dingxiang_middleware.update(3, tempContent)
             return tempContent
         else:
+            dingxiang_middleware.update(3, newsContent)
             return newsContent
     else:
+        dingxiang_middleware.update(3, newsContent)
         return newsContent
 
 
 # getHtml()
+# getBriefTips()
 # print(getBriefInfo())
 # getDetailInfo()
 # getNews()
-# getDetailInfoNew()
+# print(getDetailInfoNew())
 # print(getTimeLine())
 # getComplexTimeLine()
 # getComplexTimeLine()
 # print(getRumor())
 # print(getForeignDetailInfo())
 # print(getComplexDetail())
-print(getBriefInfoNew())
+# print(getBriefInfoNew())
+
+while True:
+    getBriefInfoNew()
+    getBriefTips()
+    getComplexDetail()
+    getComplexTimeLine()
+    time.sleep(60)
