@@ -61,9 +61,11 @@ def getBriefInfoNew():
             i = jsonobj['detail']
             simpledata = ''
             if i['confirmedCount']:
-                simpledata = simpledata + '确诊 ' + str(i['confirmedCount']) + ' 例 '
+                simpledata = simpledata + '确诊 ' + \
+                    str(i['confirmedCount']) + ' 例 '
             if i['suspectedCount']:
-                simpledata = simpledata + '疑似 ' + str(i['suspectedCount']) + ' 例 '
+                simpledata = simpledata + '疑似 ' + \
+                    str(i['suspectedCount']) + ' 例 '
             if i['curedCount']:
                 simpledata = simpledata + '治愈 ' + str(i['curedCount']) + ' 例 '
             if i['deadCount']:
@@ -74,8 +76,6 @@ def getBriefInfoNew():
             return simpledata
     else:
         return 0
-
-
 
 
 def getBriefTips():
