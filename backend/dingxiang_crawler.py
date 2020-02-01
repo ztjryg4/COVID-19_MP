@@ -11,7 +11,7 @@ Basic
 
 
 def getHtml():
-    dx_url = "https://3g.dxy.cn/newh5/view/pneumonia"
+    dx_url = "https://ncov.dxy.cn/ncovh5/view/pneumonia"
     headers = {'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
                'Accept - Encoding': 'gzip, deflate',
                'Accept-Language': 'zh-Hans-CN, zh-Hans; q=0.5',
