@@ -15,7 +15,8 @@ Flask 框架提供服务端支持。
 为减轻服务端压力，爬虫仅爬取了微信小程序需要使用的部分疫情数据，未提供完整的疫情数据支持。更完善的疫情数据请转向这个项目：https://github.com/BlankerL/DXY-2019-nCoV-Crawler  
 
 ## 其他  
-### 小程序码  
+### 微信访问  
+通过小程序码：  
 ![](https://blogpic-1251807995.cos.ap-shanghai.myqcloud.com/20200129004536.png)  
 或搜索「新冠疫情」  
 ### 相关项目  
