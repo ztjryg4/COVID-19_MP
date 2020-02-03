@@ -64,6 +64,9 @@ def getBriefInfoNew():
             if i['confirmedCount']:
                 simpledata = simpledata + '确诊 ' + \
                     str(i['confirmedCount']) + ' 例 '
+            if i['seriousCount']:
+                simpledata = simpledata + '重症 ' + \
+                    str(i['seriousCount']) + ' 例 '
             if i['suspectedCount']:
                 simpledata = simpledata + '疑似 ' + \
                     str(i['suspectedCount']) + ' 例 '
@@ -84,13 +87,50 @@ def getBriefTips():
     content = {
         "tips": [
             "传染源：野生动物，可能为中华菊头蝠；病毒：新型冠状病毒 2019-nCoV。",
-            "传播途径：经呼吸道飞沫传播，亦可通过接触传播；易感人群：人群普遍易感。",
+            "传播途径：经呼吸道飞沫传播，亦可通过接触传播，存在粪-口传播可能性；易感人群：人群普遍易感。",
             "潜伏期: 一般为 3~7 天，最长不超过 14 天，潜伏期内存在传染性。"
         ]
     }
     # print(content)
-    dingxiang_middleware.update(1, content)
+    # dingxiang_middleware.update(1, content)
     return content
+
+
+def getBriefTipsNew():
+    content = getBriefTips()
+    html = getHtml()
+    reg1 = r'getStatisticsService = (.*?)}c'
+    filter1 = re.compile(reg1)
+    list1 = re.findall(filter1, html)
+    # print(list1)
+    if len(list1) != 0:
+        try:
+            jsonstr = '{"detail": ' + list1[0] + '}'
+            jsonobj = json.loads(jsonstr)
+            i = jsonobj['detail']
+            simpledata = '* 较昨日：'
+            if i['confirmedIncr']:
+                simpledata = simpledata + '确诊增加 ' + \
+                    str(i['confirmedIncr']) + ' 例 '
+            if i['seriousIncr']:
+                simpledata = simpledata + '重症增加 ' + \
+                    str(i['seriousIncr']) + ' 例 '
+            if i['suspectedIncr']:
+                simpledata = simpledata + '疑似增加 ' + \
+                    str(i['suspectedIncr']) + ' 例 '
+            if i['curedIncr']:
+                simpledata = simpledata + '治愈增加 ' + str(i['curedIncr']) + ' 例 '
+            if i['deadIncr']:
+                simpledata = simpledata + '死亡增加 ' + str(i['deadIncr']) + ' 例 '
+        except:
+            dingxiang_middleware.update(1, content)
+            return 0
+        else:
+            content['tips'].insert(0, simpledata)
+            dingxiang_middleware.update(1, content)
+            return simpledata
+    else:
+        return 0
 
 
 '''
@@ -337,10 +377,11 @@ def getComplexTimeLine():
 # print(getForeignDetailInfo())
 # print(getComplexDetail())
 # print(getBriefInfoNew())
+# print(getBriefTipsNew())
 
 while True:
     getBriefInfoNew()
-    getBriefTips()
+    getBriefTipsNew()
     getComplexDetail()
     getComplexTimeLine()
     time.sleep(60)
